@@ -1,6 +1,6 @@
-( collapseOS without filesystem support )
+( collapseOS w/console out without filesystem support )
 ~common.tal
-~grid.tal
+~console.tal
 
 @blkinit RTN
 
@@ -23,21 +23,9 @@
 	#0ff0 .System/b DEO2
 
 	( initialize and clear screen )
-	#0290 .Screen/width DEO2
-	#00d8 .Screen/height DEO2
-	.EmptySprite #00
-	&clearloop ADDk #00 SWP STZ INC DUP #08 LTH ,&clearloop JCN
-	ADD #fe SWP STZ
-	;EmptySprite .Screen/addr DEO2
-	#00 #00 ( stack: y x )
-	&lineloop
-	OVR INC #00 SWP #30 SFT2 .Screen/y DEO2
-	&cellloop
-	INCk #00 SWP #30 SFT2 .Screen/x DEO2
-	#49 .Screen/sprite DEO
-	INC DUP #50 LTH ,&cellloop JCN
-	POP INC #00 OVR #19 LTH ,&lineloop JCN
-	POP2
+	#0100 .Screen/width DEO2
+	#0080 .Screen/height DEO2
+	
 	( dummy device-out as replacement for loading ROM )
 	#0000 .System/vector
 	( go to main program )

@@ -1,6 +1,6 @@
 # collapseos-uxn
 
-Port of CollapseOS to uxn Tal
+Port of CollapseOS to uxn Tal, with console access added
 
 ## Description
 
@@ -41,6 +41,16 @@ access. To use, you have to concatenate the forth image file to the core image f
 bytes long, making the forth image end up at `$0800`).
 
 It has been tested in the latest version of the UXN32 emulator (2022-04-26).
+
+## Console access (devisn)
+
+All ROM versions in this fork receive input from .Console/read in addition to reading .Controller/key.
+
+There are two additional versions, collapseos-con, and cos-lite-con, that produce output through .Console/write instead of the Collapse OS Grid subsystem. Therefore they don't require Varvara Screen device to be usable.
+
+This has been tested using the (2023-04-16) [uxnemu](https://git.sr.ht/~rabbits/uxn) snapshot built under Windows MSYS2 with the --console option.
+
+I hope to use this port for further low-tech Collapse OS porting.
 
 ## Download
 

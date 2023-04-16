@@ -1,5 +1,6 @@
+( collapseOS w/console out )
 ~common.tal
-~grid.tal
+~console.tal
 
 @blkinit ( initialize blkfs )
 	#00 .File/append DEO
@@ -41,7 +42,7 @@
 
 ( variables used by initialization program )
 @infile "blkfs 00
-@romfile "collapseos.bin 00
+@romfile "collapseos-con.bin 00
 
 @init
 	#0000 .ZP/tmp1 STZ2 ( tmp1 = offset )
@@ -81,22 +82,11 @@
 	#0f0f .System/r DEO2
 	#0f0f .System/g DEO2
 	#0ff0 .System/b DEO2
+	
 	( initialize and clear screen )
-	#0290 .Screen/width DEO2
-	#00d8 .Screen/height DEO2
-	.EmptySprite #00
-	&clearloop ADDk #00 SWP STZ INC DUP #08 LTH ,&clearloop JCN
-	ADD #fe SWP STZ
-	;EmptySprite .Screen/addr DEO2
-	#00 #00 ( stack: y x )
-	&lineloop
-	OVR INC #00 SWP #30 SFT2 .Screen/y DEO2
-	&cellloop
-	INCk #00 SWP #30 SFT2 .Screen/x DEO2
-	#49 .Screen/sprite DEO
-	INC DUP #50 LTH ,&cellloop JCN
-	POP INC #00 OVR #19 LTH ,&lineloop JCN
-	POP2
+	#0100 .Screen/width DEO2
+	#0080 .Screen/height DEO2
+	
 	( prepare to read ROM )
 	;romfile .File/addr(name) DEO2
 	#2000 .File/addr(length) DEO2

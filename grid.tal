@@ -1,0 +1,29 @@
+( GRID driver )
+
+@op-uxnCell
+	;ppop JSR2 .ZP/tmp1 STZ2 ( tmp1 = font address )
+	;ppop JSR2 NIP .ZP/tmpY STZ ( tmpY = y coordinate )
+	;ppop JSR2 NIP .ZP/tmpX STZ ( tmpX = x coordinate )
+	;ppop JSR2 NIP .ZP/tmp2 STZ ( tmp2 = character )
+	.ZP/tmp2 LDZ #20 LTH ,&cursor JCN
+
+	#00 .ZP/tmpY LDZ INC2 #30 SFT2 .Screen/y DEO2
+	#00 .ZP/tmpX LDZ INC2 #30 SFT2 .Screen/x DEO2
+	#00 .ZP/tmp2 LDZ #20 SUB #0007 MUL2 .ZP/tmp1 LDZ2 ADD2 .Screen/addr DEO2
+	#49 .Screen/sprite DEO
+	;CursorSprite .Screen/addr DEO2
+	#4a .Screen/sprite DEO
+	,&done JMP
+	&cursor
+	;CursorSprite .Screen/addr DEO2
+	#00 .ZP/curY LDZ INC2 #30 SFT2 .Screen/y DEO2
+	#00 .ZP/curX LDZ INC2 #30 SFT2 .Screen/x DEO2
+	#4a .Screen/sprite DEO
+	.ZP/tmpX LDZ .ZP/curX STZ
+	.ZP/tmpY LDZ .ZP/curY STZ
+	#00 .ZP/curY LDZ INC2 #30 SFT2 .Screen/y DEO2
+	#00 .ZP/curX LDZ INC2 #30 SFT2 .Screen/x DEO2
+	#4f .Screen/sprite DEO
+
+	&done
+	;handler/next JMP2

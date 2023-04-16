@@ -1,0 +1,6 @@
+( console out driver )
+
+@op-uxnCell
+	;ppop JSR2 NIP .ZP/tmp2 STZ 
+	.ZP/tmp2 LDZ .Console/write DEO
+	;handler/next JMP2
